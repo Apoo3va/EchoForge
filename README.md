@@ -1,53 +1,76 @@
 # EchoForge
 
-About This Project
+### Turn text into speech and speech into text, delivered straight to Telegram.
 
-EchoForge is an n8n automation workflow that connects ElevenLabs with Telegram. It allows a user to either convert typed text into speech or upload an audio file and receive a written transcript. The workflow is built entirely inside n8n using a form trigger, a conditional branch, HTTP requests to the ElevenLabs API, and Telegram nodes to deliver the final result directly to a chat.
+**Author:** Apoorva Yadav
 
-The idea behind this workflow is to make voice generation and transcription accessible through a simple web form, without needing any coding on the user side. Once the form is submitted, the entire process runs automatically and the output is sent straight to Telegram.
+## Overview
 
-How It Works
+EchoForge is an n8n automation workflow that connects ElevenLabs with Telegram. Submit text through a simple form and receive back a spoken audio file, or upload an audio recording and receive back a written transcript. Everything runs automatically once the form is submitted, and the result lands directly in a Telegram chat.
 
-The workflow starts with a form that asks the user what they want to do. There are two options available. The first option is Text to Speech, where the user types in the text they want converted into audio. The second option is Speech to Text, where the user uploads an audio file to be transcribed.
+No coding is required on the user side. The entire pipeline, from input to processing to delivery, is handled inside n8n.
 
-Once the form is submitted, the workflow checks which option was selected. If Text to Speech was chosen, the text is sent to the ElevenLabs text to speech endpoint, which generates an audio file. That audio file is then delivered to a Telegram chat along with a short caption.
+## Features
 
-If Speech to Text was chosen instead, the uploaded audio file is sent to the ElevenLabs speech to text endpoint. The resulting transcript is then sent as a text message to the same Telegram chat.
+1. Single form interface for two different capabilities
+2. Text to speech conversion using the ElevenLabs API
+3. Speech to text transcription using the ElevenLabs API
+4. Automatic delivery of results to Telegram
+5. Fully automated, no manual steps between submission and output
 
-Requirements
+## How It Works
 
-Before running this workflow you will need an n8n instance, either self hosted or cloud based. You will also need an ElevenLabs account with an active API key, since this workflow relies on the ElevenLabs text to speech and speech to text endpoints. Finally you will need a Telegram bot created through BotFather, along with the chat ID of the person or group that should receive the results.
+The workflow begins with a form asking what the user wants to do.
 
-Setting Up ElevenLabs
+**Option 1: Text to Speech**
+The user types text into the form. That text is sent to the ElevenLabs text to speech endpoint, which returns a generated audio file. The audio is delivered to Telegram along with a short caption.
 
-Create an account on ElevenLabs and generate an API key from your profile settings. This key will be used inside n8n as a credential so that the workflow can authenticate with the ElevenLabs API when sending text or audio for processing.
+**Option 2: Speech to Text**
+The user uploads an audio file. That file is sent to the ElevenLabs speech to text endpoint, which returns a transcript. The transcript is sent as a text message to the same Telegram chat.
 
-Setting Up Telegram
+A conditional branch inside the workflow automatically routes the submission to the correct path based on the option selected.
 
-Open Telegram and search for BotFather. Send the command newbot and follow the steps to create a new bot. BotFather will give you a token that identifies your bot. This token needs to be added as a Telegram credential inside n8n.
+## Requirements
 
-To find your chat ID, send a message to your newly created bot from your Telegram account. Then open a browser and visit the getUpdates endpoint for your bot using your token. The response will contain a chat object with an id field. That number is your chat ID and should be entered into the workflow wherever a chat ID is required.
+Before running EchoForge, make sure you have the following ready.
 
-Importing The Workflow
+1. An n8n instance, either self hosted or cloud based
+2. An ElevenLabs account with an active API key
+3. A Telegram bot created through BotFather
+4. The Telegram chat ID of the person or group that should receive results
 
-Open your n8n instance and go to the workflows section. Choose the option to import from file and select the JSON file included in this repository. Once imported, open each node that requires credentials and connect your own ElevenLabs and Telegram credentials, since credentials are not included in the exported file for security reasons.
+## Setup Guide
 
-After the credentials are connected, activate the workflow so that the form becomes available for use.
+### Setting Up ElevenLabs
 
-Using The Workflow
+Create an account on ElevenLabs and generate an API key from the profile settings page. This key is added inside n8n as a credential, allowing the workflow to authenticate whenever it sends text or audio for processing.
 
-Open the form link generated by the trigger node. Select whether you want to convert text into speech or transcribe an audio file. Fill in the relevant field, either the text box or the file upload, and submit the form.
+### Setting Up Telegram
 
-If text to speech was selected, you will shortly receive an audio message on Telegram containing the generated speech. If speech to text was selected, you will receive a text message on Telegram containing the transcript of the uploaded audio.
+Open Telegram and search for BotFather. Send the command newbot and follow the prompts to create a bot. BotFather will return a token that identifies the bot. Add this token as a Telegram credential inside n8n.
 
-Project Structure
+To find the chat ID, send any message to the newly created bot from a Telegram account. Then open a browser and visit the getUpdates endpoint for the bot using its token. The response will include a chat object containing an id field. That number is the chat ID, and it should be entered wherever a chat ID is required inside the workflow.
 
-The repository contains the exported n8n workflow in JSON format, which can be directly imported into any n8n instance. It also contains a recording of the workflow in action, demonstrating both the text to speech and speech to text paths from form submission through to the final Telegram output.
+### Importing The Workflow
 
-Notes
+Open the n8n instance and navigate to the workflows section. Choose the option to import from file and select the JSON file included in this repository. Once imported, open each node that requires credentials and connect personal ElevenLabs and Telegram credentials, since credentials are never included in an exported workflow file for security reasons.
+
+Activate the workflow once credentials are connected, and the form becomes available for use.
+
+## Using EchoForge
+
+1. Open the form link generated by the trigger node
+2. Select either Text to Speech or Speech to Text
+3. Fill in the relevant field, either the text box or the file upload
+4. Submit the form
+5. Check Telegram for the result
+
+Text to Speech submissions return an audio message. Speech to Text submissions return a text message with the transcript.
+
+## Project Structure
+
+The repository contains the exported n8n workflow in JSON format, ready to be imported into any n8n instance. It also contains a recording of the workflow running end to end, showing both the text to speech and speech to text paths from form submission through to the final Telegram output.
+
+## Notes
 
 EchoForge was built as a hands on exercise in connecting third party APIs through n8n without writing custom backend code. It demonstrates how form based triggers, conditional logic, external API calls, and messaging integrations can be combined into a single automated pipeline.
-
-EchoForge
-
-Author: Apoorva Yadav
