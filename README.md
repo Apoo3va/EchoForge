@@ -2,8 +2,6 @@
 
 ### Turn text into speech and speech into text, delivered straight to Telegram.
 
-**Author:** Apoorva Yadav
-
 ## Overview
 
 EchoForge is an n8n automation workflow that connects ElevenLabs with Telegram. Submit text through a simple form and receive back a spoken audio file, or upload an audio recording and receive back a written transcript. Everything runs automatically once the form is submitted, and the result lands directly in a Telegram chat.
@@ -74,3 +72,7 @@ The repository contains the exported n8n workflow in JSON format, ready to be im
 ## Notes
 
 EchoForge was built as a hands on exercise in connecting third party APIs through n8n without writing custom backend code. It demonstrates how form based triggers, conditional logic, external API calls, and messaging integrations can be combined into a single automated pipeline.
+
+## Author: 
+
+Apoorva Yadav
